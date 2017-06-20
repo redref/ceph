@@ -8277,6 +8277,9 @@ void OSD::handle_pg_create(OpRequestRef op)
        ++p, ++ci) {
     assert(ci != m->ctimes.end() && ci->first == p->first);
     epoch_t created = p->second.created;
+    if (created == 0) {
+      created = m->epoch;
+    }
     if (p->second.split_bits) // Skip split pgs
       continue;
     pg_t on = p->first;
